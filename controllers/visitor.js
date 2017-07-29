@@ -19,7 +19,7 @@ exports.browse = function (req, res, next) {
 exports.read = function (req, res, next) {
 
   models.Visitor
-    .findOne({ email: req.params.email })
+    .findById(req.params.id)
     .findOne((err, visitor) => {
 
       if (err) {

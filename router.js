@@ -12,7 +12,7 @@ module.exports = function (app) {
   });
 
   app.get('/visitor/', visitor.browse);
-  app.get('/visitor/:email', visitor.read);
+  app.get('/visitor/:id', visitor.read);
   app.post('/visitor/', visitor.add);
 
   app.get('/farmer/', farmer.browse);

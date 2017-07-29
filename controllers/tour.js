@@ -38,19 +38,32 @@ exports.read = function (req, res, next) {
 
 exports.add = function (req, res, next) {
 
-  const tour = new models.Tour({
-    farmer: req.params.farmer_id,
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    features: req.body.features
-  });
+  models.Farmer.findById(req.params.farmer_id, (err, farmer) => {
 
-  tour.save((err, t) => {
-    if (err) {
-      console.error(err);
-    } else {
-      res.send(t);
-    }
+    const tour = new models.Tour({
+      farmer,
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      features: req.body.features
+    });
+
+    farmer.tours.push(tour);
+    farmer.save((err, f) => {
+      if (err) {
+        console.error(err);
+      } else {
+
+        tour.save((err, t) => {
+
+          if (err) {
+            console.error(err);
+          } else {
+            res.send(t);
+          }
+        });
+      }
+    });
+
   });
 };
