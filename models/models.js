@@ -27,7 +27,8 @@ const schemas = {
     name: String,
     description: String,
     price: Number,
-    features: [{ type: String }]
+    features: [{ type: String }],
+    popularity: Number
   },
 
   reservation: {

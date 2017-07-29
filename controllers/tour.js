@@ -42,7 +42,8 @@ exports.edit = function (req, res, next) {
     name: req.body.name,
     description: req.body.description,
     price: req.body.price,
-    features: req.body.features
+    features: req.body.features,
+    popularity: req.body.popularity
   }, (err, tour) => {
 
     if (err) return console.log(err);
@@ -60,7 +61,8 @@ exports.add = function (req, res, next) {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
-      features: req.body.features
+      features: req.body.features,
+      popularity: req.body.popularity
     });
 
     farmer.tours.push(tour);
