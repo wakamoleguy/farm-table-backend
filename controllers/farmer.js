@@ -33,7 +33,6 @@ exports.read = function (req, res, next) {
 };
 
 exports.add = function (req, res, next) {
-  console.log(req.body);
 
   const farmer = new models.Farmer({
     name: req.body.name,
