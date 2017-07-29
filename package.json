@@ -1,0 +1,19 @@
+{
+  "name": "farm-table-backend",
+  "version": "0.1.0",
+  "description": "An API backend for The Farm Table",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wakamoleguy/farm-table-backend.git"
+  },
+  "author": "Will Mitchell <wakamoleguy@gmail.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/wakamoleguy/farm-table-backend/issues"
+  },
+  "homepage": "https://github.com/wakamoleguy/farm-table-backend#readme"
+}
