@@ -16,8 +16,6 @@ function Classifier(tours) {
     });
   });
 
-  // TODO - actually learn things based on the features
-
   this.featureWeights = {};
 
   this.allFeatures.forEach((feature) => {
@@ -67,6 +65,20 @@ Classifier.prototype = {
     } else {
       return scoreWith;
     }
+  },
+
+  suggest(tour) {
+
+    return [...this.allFeatures].map((feature) => {
+
+      const score = this.predict(tour, feature);
+
+      return {
+        feature,
+        score,
+        diff: score - tour.popularity
+      };
+    }).sort((a, b) => b.score - a.score);
   }
 };
 

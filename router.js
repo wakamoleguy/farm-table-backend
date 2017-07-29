@@ -19,6 +19,8 @@ module.exports = function (app) {
   app.get('/farmer/:id', farmer.read);
   app.post('/farmer/', farmer.add);
 
+  app.get('/farmer/:id/suggest/', farmer.suggest);
+
   app.get('/farmer/:farmer_id/tour/', tour.browse);
   app.get('/farmer/:farmer_id/tour/:tour_id/', tour.read);
   app.put('/farmer/:farmer_id/tour/:tour_id/', tour.edit);
