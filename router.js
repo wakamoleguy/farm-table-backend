@@ -20,7 +20,8 @@ module.exports = function (app) {
   app.post('/farmer/', farmer.add);
 
   app.get('/farmer/:farmer_id/tour/', tour.browse);
-  app.get('/farmer/:farmer_id/tour/:tour_id', tour.read);
+  app.get('/farmer/:farmer_id/tour/:tour_id/', tour.read);
+  app.put('/farmer/:farmer_id/tour/:tour_id/', tour.edit);
   app.post('/farmer/:farmer_id/tour/', tour.add);
 
   app.get('/reservation/', reservation.browse);

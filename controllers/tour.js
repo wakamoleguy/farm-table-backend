@@ -36,6 +36,21 @@ exports.read = function (req, res, next) {
     });
 };
 
+exports.edit = function (req, res, next) {
+
+  models.Tour.findByIdAndUpdate(req.params.tour_id, {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    features: req.body.features
+  }, (err, tour) => {
+
+    if (err) return console.log(err);
+
+    res.send('OK');
+  });
+};
+
 exports.add = function (req, res, next) {
 
   models.Farmer.findById(req.params.farmer_id, (err, farmer) => {
