@@ -59,11 +59,16 @@ exports.suggest = function (req, res, next) {
 
       if (err) return console.error(err);
 
-      models.Farmer.find({}, (err, allFarmers) => {
+      models.Farmer
+      .find({})
+      .populate('tours')
+      .find((err, allFarmers) => {
 
         if (err) return console.error(err);
 
         function farmerAsTour(farmer) {
+
+          console.log('Converting farmer to tour', farmer);
           return {
             popularity: farmer.tours.reduce((sum, tour) => sum += tour.popularity, 0),
             features: farmer.tours.reduce((features, tour) => features.concat(tour.features), [])
@@ -72,9 +77,15 @@ exports.suggest = function (req, res, next) {
 
         const allFarmersAsTours = allFarmers.map(farmerAsTour);
 
+        console.log("All Farmers", allFarmersAsTours);
+
         const classifier = new Classifier(allFarmersAsTours);
 
+        console.log("Classifier", classifier);
+
         const myFarmerAsTour = farmerAsTour(myFarmer);
+
+        console.log("My Farmer", myFarmerAsTour);
 
         res.send({
           myFarmer,
