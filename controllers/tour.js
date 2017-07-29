@@ -3,7 +3,9 @@ const models = require('../models/models');
 exports.browse = function (req, res, next) {
 
   models.Tour
-    .find({})
+    .find({
+      farmer: req.params.farmer_id
+    })
     .populate('reservations')
     .populate('farmer')
     .find((err, tours) => {
