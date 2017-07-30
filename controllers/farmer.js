@@ -96,7 +96,7 @@ function suggest(farmer_id, callback) {
         console.log("My Farmer", myFarmerAsTour);
 
         callback({
-          myFarmer,
+          farmer: myFarmer,
           suggestions: classifier.suggest(myFarmerAsTour)
         });
       });
@@ -169,6 +169,7 @@ exports.suggestNearby = function (req, res, next) {
         farmer: farmerWithSuggestions.farmer,
         suggestions: farmerWithSuggestions.suggestions.map((suggestion) => {
 
+          console.log("Nearby pct?", suggestion.feature, nearbyCrops[suggestion.feature]);
           const pct = nearbyCrops[suggestion.feature]
             ? nearbyCrops[suggestion.feature].pct
             : 0;
