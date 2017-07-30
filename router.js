@@ -20,6 +20,8 @@ module.exports = function (app) {
   app.post('/farmer/', farmer.add);
 
   app.get('/farmer/:id/suggest/', farmer.suggest);
+  app.get('/farmer/:id/nearby/', farmer.nearby);
+  app.get('/farmer/:id/suggest/nearby', farmer.suggestNearby);
 
   app.get('/farmer/:farmer_id/tour/', tour.browse);
   app.get('/farmer/:farmer_id/tour/:tour_id/', tour.read);

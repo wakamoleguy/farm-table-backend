@@ -53,8 +53,15 @@ const Classifier = require('../ml/classifier');
 
 exports.suggest = function (req, res, next) {
 
+  suggest(req.params.id, (data) => {
+    res.send(data);
+  });
+};
+
+function suggest(farmer_id, callback) {
+
   models.Farmer
-    .findById(req.params.id)
+    .findById(farmer_id)
     .populate('tours')
     .findOne((err, myFarmer) => {
 
@@ -88,11 +95,89 @@ exports.suggest = function (req, res, next) {
 
         console.log("My Farmer", myFarmerAsTour);
 
-        res.send({
+        callback({
           myFarmer,
           suggestions: classifier.suggest(myFarmerAsTour)
-        })
+        });
       });
+    });
+}
+
+exports.nearby = function (req, res, next) {
+
+  nearby((data) => {
+    res.send(data);
+  });
+}
+function nearby(callback) {
+
+  const cachedFarmPlentyResponse = require('../data/cached_farmplenty_response');
+
+  const totalAcres = cachedFarmPlentyResponse.crops
+    .reduce((sum, crop) => sum += crop.pctAcres, 0);
+
+  const cropsNearby = cachedFarmPlentyResponse.crops
+    .map((crop) => ({ name: crop.name, pctAcres: crop.pctAcres }))
+    .filter((crop) => !/Other/.test(crop.name))
+    .map((crop) => {
+
+      let category;
+
+      const features = require('../data/features');
+
+      switch (crop.name) {
+        case 'Rice':
+        case 'Winter Wheat':
+        case 'Walnuts':
+          category = features.GRAIN;
+          break;
+        case 'Tomatoes':
+          category = features.FRUITS;
+          break;
+        case 'Alfalfa':
+        default:
+          category = features.VEGGIES;
+      }
+
+      return {
+        name: crop.name,
+        pct: Math.round(crop.pctAcres / totalAcres * 100),
+        feature: category
+      };
     })
+    .reduce((ag, crop) => {
+
+      if (!ag[crop.feature]) ag[crop.feature] = 0;
+
+      ag[crop.feature] += crop.pct;
+
+      return ag;
+    }, {});
+
+  callback(cropsNearby);
+};
+
+exports.suggestNearby = function (req, res, next) {
+
+  suggest(req.params.id, (suggestions) => {
+    nearby((nearbyCrops) => {
+
+      // Map over suggestions, because they try all features
+      res.send(
+        suggestions.map((suggestion) => {
+          const pct = nearbyCrops[suggestion.feature]
+            ? nearbyCrops[suggestion.feature].pct
+            : 0;
+
+          return {
+            feature: suggestion.feature,
+            score: suggestion.score,
+            diff: suggestion.diff,
+            pct
+          };
+        }).sort((a, b) => b.pct - a.pct)
+      );
+    });
+  });
 
 };
