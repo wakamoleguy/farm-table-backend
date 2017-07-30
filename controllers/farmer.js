@@ -162,10 +162,13 @@ exports.suggestNearby = function (req, res, next) {
   suggest(req.params.id, (farmerWithSuggestions) => {
     nearby((nearbyCrops) => {
 
+      console.log('Nearby Crops', nearbyCrops);
+
       // Map over suggestions, because they try all features
       res.send({
         farmer: farmerWithSuggestions.farmer,
         suggestions: farmerWithSuggestions.suggestions.map((suggestion) => {
+
           const pct = nearbyCrops[suggestion.feature]
             ? nearbyCrops[suggestion.feature].pct
             : 0;
