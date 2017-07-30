@@ -178,7 +178,7 @@ exports.suggestNearby = function (req, res, next) {
             feature: suggestion.feature,
             score: suggestion.score,
             diff: suggestion.diff,
-            pct
+            pct: pct
           };
         }).sort((a, b) => b.pct - a.pct)
       });
