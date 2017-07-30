@@ -171,14 +171,14 @@ exports.suggestNearby = function (req, res, next) {
 
           console.log("Nearby pct?", suggestion.feature, nearbyCrops[suggestion.feature]);
           const pct = nearbyCrops[suggestion.feature]
-            ? nearbyCrops[suggestion.feature].pct
+            ? nearbyCrops[suggestion.feature]
             : 0;
 
           return {
             feature: suggestion.feature,
             score: suggestion.score,
             diff: suggestion.diff,
-            pct: pct
+            pct
           };
         }).sort((a, b) => b.pct - a.pct)
       });
