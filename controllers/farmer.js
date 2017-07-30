@@ -20,6 +20,7 @@ exports.read = function (req, res, next) {
 
   models.Farmer
     .findById(req.params.id)
+    .populate('tours')
     .findOne((err, farmer) => {
 
       if (err) {
