@@ -111,7 +111,7 @@ exports.nearby = function (req, res, next) {
 }
 function nearby(callback) {
 
-  const cachedFarmPlentyResponse = require('../data/cached_farmplenty_response');
+  const cachedFarmPlentyResponse = require('../data/cached_farmplenty_response_2');
 
   const totalAcres = cachedFarmPlentyResponse.crops
     .reduce((sum, crop) => sum += crop.pctAcres, 0);
@@ -129,9 +129,12 @@ function nearby(callback) {
         case 'Rice':
         case 'Winter Wheat':
         case 'Walnuts':
+        case 'Almonds':
+        case 'Corn':
           category = features.GRAIN;
           break;
         case 'Tomatoes':
+        case 'Grapes':
           category = features.FRUITS;
           break;
         case 'Alfalfa':
