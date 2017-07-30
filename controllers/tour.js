@@ -43,7 +43,8 @@ exports.edit = function (req, res, next) {
     description: req.body.description,
     price: req.body.price,
     features: req.body.features,
-    popularity: req.body.popularity
+    popularity: req.body.popularity,
+    ratings: req.body.ratings
   }, (err, tour) => {
 
     if (err) return console.log(err);
@@ -62,7 +63,8 @@ exports.add = function (req, res, next) {
       description: req.body.description,
       price: req.body.price,
       features: req.body.features,
-      popularity: req.body.popularity
+      popularity: req.body.popularity,
+      ratings: req.body.ratings
     });
 
     farmer.tours.push(tour);

@@ -12,7 +12,7 @@ const schemas = {
 
   farmer: {
     name: String,
-    description: String,
+    location: String,
     tours: [{
       type: Schema.Types.ObjectId,
       ref: 'Tour'
@@ -28,7 +28,8 @@ const schemas = {
     description: String,
     price: Number,
     features: [{ type: String }],
-    popularity: Number
+    popularity: Number,
+    ratings: [String],
   },
 
   reservation: {

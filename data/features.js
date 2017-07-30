@@ -1,10 +1,8 @@
 module.exports = {
-  DAIRY: 'dairy',
-  FRUITS: 'fruit',
-  VEGGIES: 'veggie',
-  CATTLE: 'cattle',
-  GOATS: 'goats',
-  GRAIN: 'grains',
+  VEGETABLE: 'vegetable',
+  FRUIT: 'fruit',
+  GOAT: 'goat',
   SHEEP: 'sheep',
-  POULTRY: 'poultry'
+  PIG: 'pig',
+  GRAIN: 'grain'
 };

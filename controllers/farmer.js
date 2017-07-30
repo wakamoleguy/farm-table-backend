@@ -37,7 +37,7 @@ exports.add = function (req, res, next) {
 
   const farmer = new models.Farmer({
     name: req.body.name,
-    description: req.body.description
+    location: req.body.location
   });
 
   farmer.save((err, f) => {
@@ -135,11 +135,11 @@ function nearby(callback) {
           break;
         case 'Tomatoes':
         case 'Grapes':
-          category = features.FRUITS;
+          category = features.FRUIT;
           break;
         case 'Alfalfa':
         default:
-          category = features.VEGGIES;
+          category = features.VEGETABLE;
       }
 
       return {
