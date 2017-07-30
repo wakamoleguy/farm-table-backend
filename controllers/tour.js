@@ -6,7 +6,7 @@ exports.browseAll = function (req, res, next) {
       .find((err, tours) => {
       if (err) return console.error(err);
 
-      res.send(tours);
+      res.send(tours.sort((a, b) => b.sort_id - a.sort_id));
     });
 };
 
