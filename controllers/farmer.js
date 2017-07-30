@@ -159,12 +159,13 @@ function nearby(callback) {
 
 exports.suggestNearby = function (req, res, next) {
 
-  suggest(req.params.id, (suggestions) => {
+  suggest(req.params.id, (farmerWithSuggestions) => {
     nearby((nearbyCrops) => {
 
       // Map over suggestions, because they try all features
-      res.send(
-        suggestions.map((suggestion) => {
+      res.send({
+        farmer: farmerWithSuggestions.farmer,
+        suggestions: farmerWithSuggestions.suggestions.map((suggestion) => {
           const pct = nearbyCrops[suggestion.feature]
             ? nearbyCrops[suggestion.feature].pct
             : 0;
@@ -176,7 +177,7 @@ exports.suggestNearby = function (req, res, next) {
             pct
           };
         }).sort((a, b) => b.pct - a.pct)
-      );
+      });
     });
   });
 
