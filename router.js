@@ -23,6 +23,7 @@ module.exports = function (app) {
   app.get('/farmer/:id/nearby/', farmer.nearby);
   app.get('/farmer/:id/suggest/nearby', farmer.suggestNearby);
 
+  app.get('/tour/', tour.browseAll);
   app.get('/farmer/:farmer_id/tour/', tour.browse);
   app.get('/farmer/:farmer_id/tour/:tour_id/', tour.read);
   app.put('/farmer/:farmer_id/tour/:tour_id/', tour.edit);

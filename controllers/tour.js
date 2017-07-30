@@ -1,5 +1,15 @@
 const models = require('../models/models');
 
+exports.browseAll = function (req, res, next) {
+    models.Tour.find({})
+      .populate('farmer')
+      .find((err, tours) => {
+      if (err) return console.error(err);
+
+      res.send(tours);
+    });
+};
+
 exports.browse = function (req, res, next) {
 
   models.Tour

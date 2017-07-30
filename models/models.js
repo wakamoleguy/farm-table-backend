@@ -30,6 +30,7 @@ const schemas = {
     features: [{ type: String }],
     popularity: Number,
     ratings: [String],
+    sort_id: Number
   },
 
   reservation: {
